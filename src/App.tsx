@@ -1,26 +1,64 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import Navbar from "./components/layouts/navbar/Navbar";
+import Footer from "./components/layouts/footer/Footer";
+import { useDispatch } from "react-redux";
+import { addProducts } from "./redux/slices/products";
+import { products, validateToken } from "./hooks/initialFetch";
+import { loginUser } from "./redux/slices/user";
+import Loading from "./components/loading/Loading";
+import { useSelector } from "react-redux";
+import { State } from "./redux/store";
 
-function App() {
+const App: React.FC = () => {
+  const dispatch = useDispatch();
+  const [loading, setloading] = useState(true);
+  const navigate = useNavigate();
+  const user = useSelector((state: State) => state.userStore.user);
+  useEffect(() => {
+    products()
+      .then((res) => {
+        dispatch(addProducts(res));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    if (!user) {
+      validateToken()
+        .then((status) => {
+          if (status) {
+            dispatch(loginUser(localStorage.getItem("userAuth") || ""));
+            setloading(false);
+          } else {
+            navigate("/login");
+          }
+        })
+        .catch((err) => {
+          navigate("/login");
+          console.error(err);
+        });
+    } else {
+      setloading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="flex flex-col justify-between">
+        {loading ? (
+          <div className="h-screen">
+            <Loading />
+          </div>
+        ) : (
+          <>
+            <Navbar />
+            <Outlet />
+            <Footer />
+          </>
+        )}
+      </div>
+    </>
   );
-}
+};
 
 export default App;
