@@ -12,7 +12,7 @@ const Comment = () => {
           placeholder="What are your thoughts?"
           className="px-5 py-3 h-24 rounded-lg w-full bg-transparent border"
         ></textarea>
-        <div className="w-[15%] my-5">
+        <div className="w-[75%] sm:text-lg sm:w-[15%] my-5">
           <Button title="POST A COMMENT" />
         </div>
         <hr />
@@ -26,10 +26,7 @@ const Comment = () => {
           <p className="font-thin opacity-70">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus
             ex voluptatum sapiente laborum tempore in alias ducimus placeat
-            tempora qui distinctio, magni dolore fugit ipsum vitae. Dolorum quis
-            fugit, excepturi, veritatis error, dolores rerum ratione doloremque
-            iusto accusamus amet ex corporis quae consequatur velit aliquam.
-            Neque eius explicabo beatae repudiandae?
+            tempora qui distinctio, magni dolore fugit ipsum vitae.
           </p>
           <div className="flex items-center gap-3 font-thin opacity-70"><BsReply/><p>Reply</p></div>
         </div>
