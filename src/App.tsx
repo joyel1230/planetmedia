@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./components/layouts/navbar/Navbar";
 import Footer from "./components/layouts/footer/Footer";
 import { useDispatch } from "react-redux";
@@ -49,12 +49,14 @@ const App: React.FC = () => {
           <div className="h-screen">
             <Loading />
           </div>
-        ) : (
+        ) : user ? (
           <>
             <Navbar />
             <Outlet />
             <Footer />
           </>
+        ) : (
+          <Navigate to={"/login"} />
         )}
       </div>
     </>
