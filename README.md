@@ -25,3 +25,11 @@ The blog feature of the project includes the following:
 - **Comment Section:** The detail page should have a comment section to allow user interaction and engagement.
 
 - **Login Requirement:** Customers need to login to access the blog page.
+
+## .env Variables
+
+REACT_APP_CONSUMER_KEY
+
+REACT_APP_CONSUMER_SECRET
+
+REACT_APP_API_URL
